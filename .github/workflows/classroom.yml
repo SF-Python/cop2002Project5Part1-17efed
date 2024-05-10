@@ -1,0 +1,614 @@
+name: Autograding Tests
+'on':
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Main Menu TEXT
+      id: main-menu-text
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Main Menu TEXT
+        setup-command: ''
+        command: python project5.py
+        input: '3'
+        expected-output: |-
+          Main Menu:
+          1.  Given a port number, identify the PROTOCOL (use abbreviation).
+          2.  Given a port protocol, identify a port NUMBER.
+          3.  Exit
+        comparison-method: contains
+        timeout: 1
+        max-score: 4
+    - name: Choice TEXT
+      id: choice-text
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Choice TEXT
+        setup-command: ''
+        command: python project5.py
+        input: |
+          1
+          m
+          3
+        expected-output: "\nChoice:  \n"
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: Option 1 Starting TEXT (just before random generated port)
+      id: option-1-starting-text-just-before-random-generated-port
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 1 Starting TEXT (just before random generated port)
+        setup-command: ''
+        command: python project5.py
+        input: |
+          1
+          m
+          3
+        expected-output: "Main Menu:\n1.  Given a port number, identify the PROTOCOL
+          (use abbreviation).\n2.  Given a port protocol, identify a port NUMBER.\n3.
+          \ Exit\n\nChoice:  \nOption 1:  Identify the port's PROTOCOL.\n----------------------------------------\n\nWhat
+          is the protocol for port"
+        comparison-method: contains
+        timeout: 1
+        max-score: 2
+    - name: Option 1 Ending TEXT (right after random generated port number)
+      id: option-1-ending-text-right-after-random-generated-port-number
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 1 Ending TEXT (right after random generated port number)
+        setup-command: ''
+        command: python project5.py
+        input: |
+          1
+          m
+          3
+        expected-output: "(m=Main Menu)?  \nMain Menu:\n1.  Given a port number, identify
+          the PROTOCOL (use abbreviation).\n2.  Given a port protocol, identify a
+          port NUMBER.\n3.  Exit\n\nChoice:  \nProgram Complete.  I hope this has
+          helped in studying for the CompTIA A+ certification."
+        comparison-method: contains
+        timeout: 1
+        max-score: 2
+    - name: Option 1 Incorrect result TEXT (Before correct answer)
+      id: option-1-incorrect-result-text-before-correct-answer
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 1 Incorrect result TEXT (Before correct answer)
+        setup-command: ''
+        command: python project5.py
+        input: |-
+          1
+          2
+          m
+          3
+        expected-output: 'Incorrect.  The correct answer is '
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: Option 1 Incorrect result TEXT (After correct answer)
+      id: option-1-incorrect-result-text-after-correct-answer
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 1 Incorrect result TEXT (After correct answer)
+        setup-command: ''
+        command: python project5.py
+        input: |-
+          1
+          2
+          m
+          3
+        expected-output: ".\n\nWhat is the protocol for port "
+        comparison-method: contains
+        timeout: 1
+        max-score: 1
+    - name: Option 1 Correct result TEXT (Before)
+      id: option-1-correct-result-text-before
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 1 Correct result TEXT (Before)
+        setup-command: ''
+        command: python project5.py
+        input: |-
+          1
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          m
+          3
+        expected-output: "Correct answer!\n\nWhat is the protocol for port "
+        comparison-method: contains
+        timeout: 2
+        max-score: 2
+    - name: Option 1 Correct result TEXT (After)
+      id: option-1-correct-result-text-after
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 1 Correct result TEXT (After)
+        setup-command: ''
+        command: python project5.py
+        input: |-
+          1
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          FTP
+          m
+          3
+        expected-output: " (m=Main Menu)?  "
+        comparison-method: contains
+        timeout: 1
+        max-score: 2
+    - name: Option 2 Starting TEXT (Before Name)
+      id: option-2-starting-text-before-name
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 2 Starting TEXT (Before Name)
+        setup-command: ''
+        command: python project5.py
+        input: |-
+          2
+          m
+          3
+        expected-output: "Option 2:  Identify the port's NUMBER.\n----------------------------------------\n\nWhat
+          is the number for protocol "
+        comparison-method: contains
+        timeout: 1
+        max-score: 2
+    - name: Option 2 Ending TEXT (After Name)
+      id: option-2-ending-text-after-name
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 2 Ending TEXT (After Name)
+        setup-command: ''
+        command: python project5.py
+        input: |-
+          2
+          m
+          3
+        expected-output: " (m=Main Menu)?  "
+        comparison-method: contains
+        timeout: 1
+        max-score: 2
+    - name: Option 2 Incorrect result TEXT (Before)
+      id: option-2-incorrect-result-text-before
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 2 Incorrect result TEXT (Before)
+        setup-command: ''
+        command: python project5.py
+        input: |-
+          2
+          945
+          m
+          3
+        expected-output: 'Incorrect.  The correct answer is '
+        comparison-method: contains
+        timeout: 2
+    - name: Option 2 Incorrect result TEXT (After)
+      id: option-2-incorrect-result-text-after
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 2 Incorrect result TEXT (After)
+        setup-command: ''
+        command: python project5.py
+        input: |-
+          2
+          10
+          m
+          3
+        expected-output: ".\n\nWhat is the number for protocol "
+        comparison-method: contains
+        timeout: 1
+    - name: Option 2 Correct result TEXT (Before)
+      id: option-2-correct-result-text-before
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 2 Correct result TEXT (Before)
+        setup-command: ''
+        command: python project5.py
+        input: |-
+          2
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          m
+          3
+          21
+          21
+          21
+          21
+          21
+        expected-output: "Correct answer!\n\nWhat is the number for protocol "
+        comparison-method: contains
+        timeout: 2
+    - name: Option 2 Correct result TEXT (After)
+      id: option-2-correct-result-text-after
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 2 Correct result TEXT (After)
+        setup-command: ''
+        command: python project5.py
+        input: |-
+          2
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          m
+          3
+        expected-output: " (m=Main Menu)?  "
+        comparison-method: contains
+        timeout: 2
+    - name: Program End TEXT
+      id: program-end-text
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Program End TEXT
+        setup-command: ''
+        command: python project5.py
+        input: '3'
+        expected-output: |2-
+
+          Program Complete.  I hope this has helped in studying for the CompTIA A+ certification.
+        comparison-method: contains
+        timeout: 1
+        max-score: 2
+    - name: Option 3 Initially (Full Output)
+      id: option-3-initially-full-output
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Option 3 Initially (Full Output)
+        setup-command: ''
+        command: python project5.py
+        input: '3'
+        expected-output: "Main Menu:\n1.  Given a port number, identify the PROTOCOL
+          (use abbreviation).\n2.  Given a port protocol, identify a port NUMBER.\n3.
+          \ Exit\n\nChoice:  \nProgram Complete.  I hope this has helped in studying
+          for the CompTIA A+ certification."
+        comparison-method: contains
+        timeout: 1
+        max-score: 2
+    - name: Project 5 Functions Test Cases
+      id: project-5-functions-test-cases
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Project 5 Functions Test Cases
+        setup-command: ''
+        command: python Project5TestCases.py
+        timeout: 5
+        max-score: 43
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        MAIN-MENU-TEXT_RESULTS: "${{steps.main-menu-text.outputs.result}}"
+        CHOICE-TEXT_RESULTS: "${{steps.choice-text.outputs.result}}"
+        OPTION-1-STARTING-TEXT-JUST-BEFORE-RANDOM-GENERATED-PORT_RESULTS: "${{steps.option-1-starting-text-just-before-random-generated-port.outputs.result}}"
+        OPTION-1-ENDING-TEXT-RIGHT-AFTER-RANDOM-GENERATED-PORT-NUMBER_RESULTS: "${{steps.option-1-ending-text-right-after-random-generated-port-number.outputs.result}}"
+        OPTION-1-INCORRECT-RESULT-TEXT-BEFORE-CORRECT-ANSWER_RESULTS: "${{steps.option-1-incorrect-result-text-before-correct-answer.outputs.result}}"
+        OPTION-1-INCORRECT-RESULT-TEXT-AFTER-CORRECT-ANSWER_RESULTS: "${{steps.option-1-incorrect-result-text-after-correct-answer.outputs.result}}"
+        OPTION-1-CORRECT-RESULT-TEXT-BEFORE_RESULTS: "${{steps.option-1-correct-result-text-before.outputs.result}}"
+        OPTION-1-CORRECT-RESULT-TEXT-AFTER_RESULTS: "${{steps.option-1-correct-result-text-after.outputs.result}}"
+        OPTION-2-STARTING-TEXT-BEFORE-NAME_RESULTS: "${{steps.option-2-starting-text-before-name.outputs.result}}"
+        OPTION-2-ENDING-TEXT-AFTER-NAME_RESULTS: "${{steps.option-2-ending-text-after-name.outputs.result}}"
+        OPTION-2-INCORRECT-RESULT-TEXT-BEFORE_RESULTS: "${{steps.option-2-incorrect-result-text-before.outputs.result}}"
+        OPTION-2-INCORRECT-RESULT-TEXT-AFTER_RESULTS: "${{steps.option-2-incorrect-result-text-after.outputs.result}}"
+        OPTION-2-CORRECT-RESULT-TEXT-BEFORE_RESULTS: "${{steps.option-2-correct-result-text-before.outputs.result}}"
+        OPTION-2-CORRECT-RESULT-TEXT-AFTER_RESULTS: "${{steps.option-2-correct-result-text-after.outputs.result}}"
+        PROGRAM-END-TEXT_RESULTS: "${{steps.program-end-text.outputs.result}}"
+        OPTION-3-INITIALLY-FULL-OUTPUT_RESULTS: "${{steps.option-3-initially-full-output.outputs.result}}"
+        PROJECT-5-FUNCTIONS-TEST-CASES_RESULTS: "${{steps.project-5-functions-test-cases.outputs.result}}"
+      with:
+        runners: main-menu-text,choice-text,option-1-starting-text-just-before-random-generated-port,option-1-ending-text-right-after-random-generated-port-number,option-1-incorrect-result-text-before-correct-answer,option-1-incorrect-result-text-after-correct-answer,option-1-correct-result-text-before,option-1-correct-result-text-after,option-2-starting-text-before-name,option-2-ending-text-after-name,option-2-incorrect-result-text-before,option-2-incorrect-result-text-after,option-2-correct-result-text-before,option-2-correct-result-text-after,program-end-text,option-3-initially-full-output,project-5-functions-test-cases
